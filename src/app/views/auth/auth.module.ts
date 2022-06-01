@@ -18,11 +18,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [LoginComponent , RegisterComponent],
   imports: [
     CommonModule,
+    WebfullstackDesignSystemModule,
     RouterModule.forChild(routes),
-    WebfullstackDesignSystemModule
   ]
 })
 export class AuthModule { }
