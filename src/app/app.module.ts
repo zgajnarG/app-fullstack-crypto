@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import {WebfullstackDesignSystemModule} from 'webfullstack-design-system';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 
@@ -12,7 +14,8 @@ import { LoginComponent } from './views/login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    WebfullstackDesignSystemModule
   ],
   providers: [],
   bootstrap: [AppComponent]
