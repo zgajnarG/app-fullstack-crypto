@@ -1,1 +1,5 @@
-<app-crypto-list [cryptos]="allCryptos"></app-crypto-list>
+<flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="cryptos.length > 0">
+  <flex-div class="crypto-card__wrapper" *ngFor="let crypto of cryptos">
+    <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
+  </flex-div>
+</flex-div>

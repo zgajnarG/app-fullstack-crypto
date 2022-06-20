@@ -25,18 +25,26 @@
       <flex-div>
         <p>Favorite</p>
       </flex-div>
-      <flex-div>
-        <app-crypto-list [cryptos]="favoriteCryptos"></app-crypto-list>
+
+      <flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="favoriteCryptos.length > 0">
+        <flex-div class="crypto-card__wrapper" *ngFor="let crypto of favoriteCryptos">
+          <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
+        </flex-div>
       </flex-div>
+
     </flex-div>
 
     <flex-div class="favorite__wrapper" direction="column">
       <flex-div>
         <p>Hot Cryptos</p>
       </flex-div>
-      <flex-div>
-        <app-crypto-list [cryptos]="randomCryptos"></app-crypto-list>
+
+      <flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="randomCryptos.length > 0">
+        <flex-div class="crypto-card__wrapper" *ngFor="let crypto of randomCryptos">
+          <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
+        </flex-div>
       </flex-div>
+
     </flex-div>
 
   </flex-div>

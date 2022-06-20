@@ -6,8 +6,6 @@
       <a routerLink="/crypto" class="header__links" routerLinkActive="header__links--active">Crypto</a>
     </flex-div>
     <flex-div justifyContent="space-around">
-      <a routerLink="/about" class="header__links" routerLinkActive="header__links--active">About</a>
-      <a routerLink="/support" class="header__links" routerLinkActive="header__links--active">Support</a>
       <a *ngIf="!isAuthenticated" class="header__links" routerLink="/auth/register">Créer un compte</a>
       <a *ngIf="!isAuthenticated" class="header__links" routerLink="/auth/login">Connexion</a>
       <a *ngIf="isAuthenticated" class="header__links" (click)="handleDisconnectUser()">Déconnexion</a>

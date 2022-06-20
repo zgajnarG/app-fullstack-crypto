@@ -12,7 +12,7 @@ const routes: Routes = [
     component: AllCryptosComponent
   },
   {
-    path: 'crypto/:id',
+    path: ':id',
     component: CryptoDetailComponent
   },
 ];
