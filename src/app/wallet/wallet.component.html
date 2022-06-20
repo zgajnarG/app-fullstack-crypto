@@ -1,0 +1,9 @@
+<flex-div justifyContent="center">
+  <lib-button
+    size="lg"
+    label="Acheter"
+    (handleClick)="openDialog()"
+  ></lib-button>
+  <lib-button size="lg" label="Vendre"></lib-button>
+</flex-div>
+<lib-datatable [headers]="getHeaders()" [data]="getData()"></lib-datatable>

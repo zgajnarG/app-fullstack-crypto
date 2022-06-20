@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Acheter de la crypto-monnaie</h1>
+<div mat-dialog-content>
+  <select [(ngModel)]="selectedCrypto">
+    <option *ngFor="let option of options" [value]="option">
+      {{ option.name }}
+    </option>
+  </select>
+  <input type="number" [(ngModel)]="amount" />
+</div>
+<div mat-dialog-actions>
+  <lib-button label="Annuler"></lib-button>
+  <lib-button label="Acheter"></lib-button>
+</div>
