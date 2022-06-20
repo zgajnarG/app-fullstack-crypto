@@ -13,12 +13,12 @@ export class HttpService {
 
 
 
-  public loginUser() : Observable<Object> {
-    return this.httpClient.get(environment.apiUrl + 'users');
+  public loginUser(user :UserRegister) : Observable<Object> {
+    return this.httpClient.get(environment.apiUrl + `user?email=${user.email}&password=${user.password}`);
   }
 
   public registerUser(user : UserRegister) : Observable<Object> {
-    return this.httpClient.post(environment.apiUrl + 'users',user);
+    return this.httpClient.post(environment.apiUrl + 'user',user);
   }
 
 }
