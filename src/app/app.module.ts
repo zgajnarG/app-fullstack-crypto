@@ -6,9 +6,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {WebfullstackDesignSystemModule} from 'webfullstack-design-system';
 import { StoreModule } from '@ngrx/store';
-import { userReducer } from './store/user/user.reducer';
 import { HeaderComponent } from "./components/header/header.component";
-
+import { reducers } from './store';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +18,7 @@ import { HeaderComponent } from "./components/header/header.component";
     HttpClientModule,
     AppRoutingModule,
     WebfullstackDesignSystemModule,
-    StoreModule.forRoot({ users : userReducer}),
+    StoreModule.forRoot(reducers),
   ],
   exports : [WebfullstackDesignSystemModule],
   providers: [],

@@ -1,1 +1,14 @@
-<p>crypto-detail works!</p>
+<div *ngIf="currentCrypto;else no_crypto" >
+  <flex-div class="header-crypto"  alignItems="center" justifyContent="space-around" [fullWidth]="true">
+    <img [src]="currentCrypto.image" alt="bitcoin" class="crypto-card__img" />
+    <p>{{currentCrypto.name}}</p>
+    <p>{{currentCrypto.eur_price}} euros</p>
+  </flex-div>
+  <flex-div class="header-crypto"  alignItems="center" justifyContent="space-around" [fullWidth]="true">
+    <lib-chart [data]="data" [maxX]="200" [unitsPerTickX]="25"></lib-chart>
+  </flex-div>
+</div>
+
+<ng-template #no_crypto>
+  <p>No crypto selected</p>
+</ng-template>
