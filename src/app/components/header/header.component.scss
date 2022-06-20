@@ -1,11 +1,14 @@
 //TODO: centraliser police couleur etc...
+
 .header{
   padding: 20px;
-  background-color: burlywood;
+  background-color: black;
   &__links{
     margin-left: 20px;
+    color: white;
     &--active{
-      color: white;
+      color: chocolate;
+      font-weight: bold;
       text-decoration: underline;
     }
   }

@@ -5,6 +5,8 @@ import { HttpService } from 'src/app/services/http.service';
 import { FieldConfig } from 'webfullstack-design-system';
 import { LoginEvent } from '../auth.interface';
 import { loginUser } from 'src/app/store/user/user.actions';
+import { Router } from "@angular/router";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +15,7 @@ import { loginUser } from 'src/app/store/user/user.actions';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private httpService : HttpService , private store : Store ) {
+  constructor(private httpService : HttpService , private store : Store, private router: Router ) {
   }
 
   formData :FieldConfig[] = [{
@@ -62,6 +64,7 @@ export class LoginComponent implements OnInit {
       if(result.length>0){
         const data :User = result[0] as unknown as User;
         this.store.dispatch(loginUser(data));
+        this.router.navigate(['/home']);
       }else{
         this.openToast("red","Mot de passe ou email incorrect");
       }
