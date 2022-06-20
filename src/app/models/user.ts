@@ -1,5 +1,4 @@
 export interface UserRegister {
-  id: number;
   email : string;
   password : string;
 }
@@ -7,6 +6,12 @@ export interface UserRegister {
 export interface UserLogin {
   id: number;
   email : string;
+}
+
+export interface UserDatabase {
+  id: number;
+  email : string;
+  password : string;
 }
 
 export default interface User{
