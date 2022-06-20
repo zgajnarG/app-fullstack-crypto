@@ -1,6 +1,6 @@
-<flex-div class="home__wrapper" direction="column" alignItems="center" justifyContent="center">
-  <flex-div>
-    <lib-card>
+<div class="home__wrapper">
+  <flex-div alignItems="center" justifyContent="center">
+    <lib-card elevation="sm" color="raisin">
       <flex-div alignItems="center" direction="column">
         <flex-div class="user__header">
           Solde total
@@ -19,14 +19,14 @@
       </flex-div>
     </lib-card>
   </flex-div>
-  <flex-div justifyContent="space-between" direction="row" [fullWidth]="true">
+  <flex-div class="cryptos" justifyContent="space-around" direction="row" [fullWidth]="true">
 
     <flex-div class="favorite__wrapper" direction="column">
       <flex-div>
         <p>Favorite</p>
       </flex-div>
 
-      <flex-div class="crypto-card__wrapper" *ngFor="let crypto of favoriteCryptos">
+      <flex-div class="crypto-card__wrapper" [fullWidth]="true" *ngFor="let crypto of favoriteCryptos">
         <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
       </flex-div>
     </flex-div>
@@ -45,6 +45,6 @@
     </flex-div>
 
   </flex-div>
-</flex-div>
+</div>
 
 

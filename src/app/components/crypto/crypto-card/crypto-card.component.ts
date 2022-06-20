@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import Crypto from "../../../models/crypto";
-import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'crypto-card',
@@ -9,9 +8,10 @@ import {Store} from "@ngrx/store";
 })
 export class CryptoCardComponent implements OnInit {
   @Input() crypto!: Crypto;
-
+  @Input() width = '30rem';
+  @Input() height = '10rem';
   @Output() clickLineEvent = new EventEmitter<Crypto>();
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
