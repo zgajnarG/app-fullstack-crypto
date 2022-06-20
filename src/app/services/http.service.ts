@@ -21,4 +21,8 @@ export class HttpService {
     return this.httpClient.post(environment.apiUrl + 'user',user);
   }
 
+  // public getMe(id: number): Observable<User> {
+    // return this.httpClient.get(`${environment.apiUrl}user/${id}`);
+  // }
+
 }

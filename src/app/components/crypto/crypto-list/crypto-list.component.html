@@ -1,0 +1,6 @@
+<flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="cryptos.length > 0">
+  <flex-div class="crypto-card__wrapper" *ngFor="let crypto of cryptos">
+    <crypto-card [crypto]="crypto"></crypto-card>
+  </flex-div>
+</flex-div>
+

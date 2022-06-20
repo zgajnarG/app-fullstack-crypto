@@ -1,1 +1,45 @@
-<p>home works!</p>
+<flex-div class="home__wrapper" direction="column" alignItems="center" justifyContent="center" [fullWidth]="true" >
+  <flex-div>
+    <lib-card>
+      <flex-div alignItems="center" direction="column">
+        <flex-div class="user__header">
+          Solde total
+        </flex-div>
+        <flex-div class="user__balance">
+          7,39 EUR
+        </flex-div>
+        <flex-div justifyContent="center" class="user__gains">
+          <flex-div class="user__gains--positive user__gains-trend">
+            + 18,07%
+          </flex-div>
+          <flex-div class="user__gains--positive user__gains-balance">
+            + 4,07 eur
+          </flex-div>
+        </flex-div>
+      </flex-div>
+    </lib-card>
+  </flex-div>
+  <flex-div justifyContent="space-between" direction="row" [fullWidth]="true">
+
+    <flex-div class="favorite__wrapper" direction="column">
+      <flex-div>
+        <p>Favorite</p>
+      </flex-div>
+      <flex-div>
+        <app-crypto-list [cryptos]="favoriteCryptos"></app-crypto-list>
+      </flex-div>
+    </flex-div>
+
+    <flex-div class="favorite__wrapper" direction="column">
+      <flex-div>
+        <p>Hot Cryptos</p>
+      </flex-div>
+      <flex-div>
+        <app-crypto-list [cryptos]="randomCryptos"></app-crypto-list>
+      </flex-div>
+    </flex-div>
+
+  </flex-div>
+</flex-div>
+
+
