@@ -23,4 +23,8 @@ export class HttpService {
   public getCryptos(): Observable<Object> {
     return this.httpClient.get(environment.apiUrl + 'cryptos');
   }
+
+  public getCryptoById(id: string): Observable<Object> {
+    return this.httpClient.get(environment.apiUrl + 'cryptos?id=' + id);
+  }
 }
