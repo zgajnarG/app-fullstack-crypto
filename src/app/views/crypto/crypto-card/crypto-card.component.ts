@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Crypto } from '../crypto';
+import { Crypto } from '../../../crypto';
 
 @Component({
   selector: 'crypto-card',
