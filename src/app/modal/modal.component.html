@@ -8,6 +8,6 @@
   <input type="number" [(ngModel)]="amount" />
 </div>
 <div mat-dialog-actions>
-  <lib-button label="Annuler"></lib-button>
+  <lib-button label="Annuler" (click)="onCancel()"></lib-button>
   <lib-button label="Acheter"></lib-button>
 </div>

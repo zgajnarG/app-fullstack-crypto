@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import Crypto from 'src/app/models/crypto';
 import { Store } from '@ngrx/store';
-import { addCryptos } from 'src/app/store/cryptos/cryptos.actions';
 import { Router } from '@angular/router';
-
+import { selectAll } from 'src/app/store/cryptos/cryptos.selector';
 @Component({
   selector: 'app-crypto-list',
   templateUrl: './crypto-list.component.html',
@@ -20,15 +19,10 @@ export class CryptoListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.httpService.getCryptos().subscribe(
-      (data) => {
-        this.cryptos = data as Crypto[];
-        this.store.dispatch(addCryptos({ cryptos: this.cryptos }));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.store.select(selectAll()).subscribe((data) => {
+      console.log('data', data);
+      this.cryptos = data as Crypto[];
+    });
   }
 
   handleClickLine(event: Crypto) {

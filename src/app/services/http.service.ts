@@ -27,4 +27,8 @@ export class HttpService {
   public getCryptoById(id: string): Observable<Object> {
     return this.httpClient.get(environment.apiUrl + 'cryptos?id=' + id);
   }
+
+  public getWalletById(userId: number): Observable<Object> {
+    return this.httpClient.get(environment.apiUrl + 'wallet?userId=' + userId);
+  }
 }

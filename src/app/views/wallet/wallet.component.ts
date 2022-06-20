@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WalletItem } from '../../wallet';
+import { Wallet, WalletItem } from '../../models/wallet';
 import { DatatableRowProperty } from 'webfullstack-design-system';
 import { ModalComponent } from '../../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectUserId } from '../../store/user/user.selector';
+import { HttpService } from 'src/app/services/http.service';
+import { saveWallet } from 'src/app/store/wallet/wallet.actions';
 
 @Component({
   selector: 'app-wallet',
@@ -10,22 +14,13 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private store: Store,
+    private httpService: HttpService
+  ) {}
 
-  @Input() wallet: WalletItem[] = [
-    {
-      crypto: 'Bitcoin',
-      amount: 20,
-    },
-    {
-      crypto: 'Ethereum',
-      amount: 5,
-    },
-    {
-      crypto: 'Tether',
-      amount: 6,
-    },
-  ];
+  @Input() wallet: WalletItem[] = [];
 
   getHeaders() {
     return [
@@ -62,5 +57,13 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select(selectUserId).subscribe((userId) =>
+      this.httpService.getWalletById(userId).subscribe((data) => {
+        const walletData = data as Wallet;
+        this.wallet = walletData.coins as WalletItem[];
+        this.store.dispatch(saveWallet(walletData));
+      })
+    );
+  }
 }
