@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
-import Crypto from 'src/app/models/crypto';
+import Crypto from "../../../models/crypto";
 import { Store } from '@ngrx/store';
 import { addCryptos } from 'src/app/store/cryptos/cryptos.actions';
-import { selectAll } from 'src/app/store/cryptos/cryptos.selector';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-crypto-list',
-  templateUrl: './crypto-list.component.html',
-  styleUrls: ['./crypto-list.component.scss']
+  selector: 'app-all-cryptos',
+  templateUrl: './all-cryptos.component.html',
+  styleUrls: ['./all-cryptos.component.scss']
 })
-export class CryptoListComponent implements OnInit {
+export class AllCryptosComponent implements OnInit {
 
   cryptos : Crypto[] = [];
 
   constructor(private httpService : HttpService , private store : Store , private router: Router ) { }
 
   ngOnInit(): void {
-
     this.httpService.getCryptos().subscribe((data) => {
       this.cryptos = data as Crypto[];
       this.store.dispatch(addCryptos({cryptos : this.cryptos}));

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import Crypto from 'src/app/models/crypto';
+import Crypto from "../../../models/crypto";
 
 @Component({
   selector: 'crypto-card',
