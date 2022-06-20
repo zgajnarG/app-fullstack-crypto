@@ -5,20 +5,22 @@ import { UserRegister } from '../models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient : HttpClient) { }
-
-
-
-  public loginUser(user :UserRegister) : Observable<Object> {
-    return this.httpClient.get(environment.apiUrl + `user?email=${user.email}&password=${user.password}`);
+  public loginUser(user: UserRegister): Observable<Object> {
+    return this.httpClient.get(
+      environment.apiUrl + `user?email=${user.email}&password=${user.password}`
+    );
   }
 
-  public registerUser(user : UserRegister) : Observable<Object> {
-    return this.httpClient.post(environment.apiUrl + 'user',user);
+  public registerUser(user: UserRegister): Observable<Object> {
+    return this.httpClient.post(environment.apiUrl + 'user', user);
   }
 
+  public getCryptos(): Observable<Object> {
+    return this.httpClient.get(environment.apiUrl + 'cryptos');
+  }
 }

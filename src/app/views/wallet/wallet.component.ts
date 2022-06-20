@@ -1,12 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WalletItem } from '../wallet';
+import { WalletItem } from '../../wallet';
 import { DatatableRowProperty } from 'webfullstack-design-system';
-import { ModalComponent } from '../modal/modal.component';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { ModalComponent } from '../../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-wallet',

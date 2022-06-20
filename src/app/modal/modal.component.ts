@@ -1,14 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Crypto } from '../crypto';
+
+import { Crypto } from '../views/crypto/models/crypto';
+import { Store } from '@ngrx/store';
+import { HttpService } from 'src/app/services/http.service';
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<ModalComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<ModalComponent>,
+    private httpService: HttpService,
+    private store: Store
+  ) {}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
