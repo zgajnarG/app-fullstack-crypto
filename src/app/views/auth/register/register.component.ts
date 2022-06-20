@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { FieldConfig } from 'webfullstack-design-system';
 import { RegisterEvent } from '../auth.interface';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,7 @@ import { RegisterEvent } from '../auth.interface';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private httpService : HttpService) { }
+  constructor(private httpService : HttpService , private router:Router) { }
 
 
   toastConfig = {
@@ -69,6 +71,8 @@ export class RegisterComponent implements OnInit {
       const data = { email: event.email, password: event.password };
       this.httpService.registerUser(data).pipe().subscribe(data => {
         this.openToast("green","Votre compte a été créé avec succès");
+        setTimeout(() => {  this.router.navigate(['/auth/login']);} , this.toastConfig.duration);
+
       },(error) =>{
         this.openToast("red","Le mot de passe ou l'email est incorrect");
       } );

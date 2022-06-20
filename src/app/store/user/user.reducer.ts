@@ -1,16 +1,19 @@
+import { createReducer ,on} from '@ngrx/store';
 import User from 'src/app/models/user';
-import * as userActions from './user.actions';
+import {disconnectUser,loginUser} from './user.actions';
 
 
-export const initialState :User = {};
+export const initialState : User  = {isAuthenticated : false};
 
-export function reducer(state = initialState, action: userActions.Actions ): User {
-  switch (action.type) {
-    case userActions.LOGIN:
-      return action.payload;
-    case userActions.DISCONNECT:
-      return {};
-    default:
-      return state;
-  }
-}
+export const userReducer = createReducer(
+  initialState,
+  on(disconnectUser, _ => {
+    localStorage.removeItem('user');
+    return {isAuthenticated : false};
+  } ),
+  on(loginUser, (state, user : User) => {
+    const data = { id : user.id , email : user.email , isAuthenticated : true};
+    localStorage.setItem('user', JSON.stringify(data));
+    return { id : user.id , email : user.email , isAuthenticated : true};
+  })
+);

@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 
 import {WebfullstackDesignSystemModule} from 'webfullstack-design-system';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './store/user/user.reducer';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import {WebfullstackDesignSystemModule} from 'webfullstack-design-system';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    WebfullstackDesignSystemModule
+    WebfullstackDesignSystemModule,
+    StoreModule.forRoot({ users : userReducer}),
   ],
   exports : [WebfullstackDesignSystemModule],
   providers: [],

@@ -17,5 +17,5 @@ export interface UserDatabase {
 export default interface User{
   id?: number;
   email? : string;
-  token? : string;
+  isAuthenticated : boolean;
 }
