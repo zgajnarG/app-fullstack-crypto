@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { HttpService } from 'src/app/services/http.service';
 import { addCrypto } from 'src/app/store/cryptos/cryptos.actions';
 import { selectOneById } from 'src/app/store/cryptos/cryptos.selector';
-import Crypto from 'src/app/models/crypto';
+import Crypto from "../../../models/crypto";
 import DataChart from 'webfullstack-design-system/lib/chart/chart.interface';
 
 @Component({

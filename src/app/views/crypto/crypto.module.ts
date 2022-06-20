@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from "@angular/router";
-import { CryptoCardComponent } from "./components/crypto-card/crypto-card.component";
-import { CryptoDetailComponent } from "./crypto-detail/crypto-detail.component";
 import { WebfullstackDesignSystemModule } from "webfullstack-design-system";
-import { CryptoListComponent } from './crypto-list/crypto-list.component';
+import { AllCryptosComponent } from './all-cryptos/all-cryptos.component';
+import { CryptoComponentModule } from "../../components/crypto/crypto-component.module";
+import { CryptoDetailComponent } from "./crypto-detail/crypto-detail.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: CryptoListComponent
+    component: AllCryptosComponent
   },
   {
     path: ':id',
@@ -18,11 +18,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [CryptoCardComponent, CryptoDetailComponent, CryptoListComponent],
+  declarations: [AllCryptosComponent, CryptoDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    WebfullstackDesignSystemModule
+    WebfullstackDesignSystemModule,
+    CryptoComponentModule
   ]
 })
 export class CryptoModule { }
