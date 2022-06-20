@@ -65,9 +65,7 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit(event :RegisterEvent){
-    console.log(event);
     if(event.password === event.confirm_password){
-      console.log("ok");
       const data = { email: event.email, password: event.password };
       this.httpService.registerUser(data).pipe().subscribe(data => {
         this.openToast("green","Votre compte a été créé avec succès");

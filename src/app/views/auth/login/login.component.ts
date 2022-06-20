@@ -58,10 +58,8 @@ export class LoginComponent implements OnInit {
   onSubmit(event :LoginEvent){
 
     this.httpService.loginUser(event as UserRegister).pipe().subscribe(data => {
-      console.log(data);
       const result : Array<UserDatabase> = data as Array<UserDatabase>;
       if(result.length>0){
-        console.log("ok login");
         const data :User = result[0] as unknown as User;
         this.store.dispatch(loginUser(data));
       }else{
