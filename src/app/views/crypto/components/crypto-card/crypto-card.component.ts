@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Crypto } from '../crypto';
+import { Crypto } from '../../models/crypto';
 
 @Component({
   selector: 'crypto-card',
@@ -7,13 +7,7 @@ import { Crypto } from '../crypto';
   styleUrls: ['./crypto-card.component.scss'],
 })
 export class CryptoCardComponent implements OnInit {
-  @Input() crypto: Crypto | undefined = {
-    id: 1,
-    name: 'Bitcoin',
-    eur_price: 29530.8,
-    image: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-    abbreviation: 'BTC',
-  };
+  @Input() crypto!: Crypto;
 
   constructor() {}
 
