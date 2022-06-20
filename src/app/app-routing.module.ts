@@ -5,6 +5,8 @@ const routes: Routes = [{
   path : 'auth',  loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
 }, {
   path: 'crypto', loadChildren: () => import('./views/crypto/crypto.module').then(m => m.CryptoModule)
+},{
+  path: 'home', loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
 }];
 
 @NgModule({
