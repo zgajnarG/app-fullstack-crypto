@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Crypto } from "../models/crypto";
+import { HttpService } from 'src/app/services/http.service';
+import Crypto from 'src/app/models/crypto';
+import { Store } from '@ngrx/store';
+import { addCryptos } from 'src/app/store/cryptos/cryptos.actions';
+import { selectAll } from 'src/app/store/cryptos/cryptos.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crypto-list',
@@ -10,29 +15,20 @@ export class CryptoListComponent implements OnInit {
 
   cryptos : Crypto[] = [];
 
-  constructor() { }
+  constructor(private httpService : HttpService , private store : Store , private router: Router ) { }
 
   ngOnInit(): void {
-    this.cryptos = [{
-      id: 1,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      img: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }, {
-      id: 2,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      img: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }, {
-      id: 3,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      img: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }]
 
+    this.httpService.getCryptos().subscribe((data) => {
+      this.cryptos = data as Crypto[];
+      this.store.dispatch(addCryptos({cryptos : this.cryptos}));
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  handleClickLine(event :Crypto){
+    this.router.navigate([`/crypto/${event.id}`]);
   }
 
 }
