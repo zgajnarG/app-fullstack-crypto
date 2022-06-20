@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   handleDisconnectUser(){
     this.store.dispatch(disconnectUser());
-    this.router.navigate(['auth']);
+    this.router.navigate(['auth/login']);
   }
 
 }
