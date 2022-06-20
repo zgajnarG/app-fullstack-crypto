@@ -67,11 +67,11 @@ export class RegisterComponent implements OnInit {
   onSubmit(event :RegisterEvent){
     if(event.password === event.confirm_password){
       const data = { email: event.email, password: event.password };
-      this.httpService.registerUser(data).pipe().subscribe(data => {
+      this.httpService.registerUser(data).pipe().subscribe((_) => {
         this.openToast("green","Votre compte a été créé avec succès");
         setTimeout(() => {  this.router.navigate(['/auth/login']);} , this.toastConfig.duration);
 
-      },(error) =>{
+      },(_) =>{
         this.openToast("red","Le mot de passe ou l'email est incorrect");
       } );
     }else{
