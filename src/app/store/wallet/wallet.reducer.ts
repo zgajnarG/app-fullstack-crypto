@@ -11,6 +11,7 @@ export const initialState: Wallet = { balance: 0 };
 export const walletReducer = createReducer(
   initialState,
   on(saveWallet, (state, wallet: Wallet) => {
+    console.log('wallet', wallet);
     return wallet;
   }),
   on(

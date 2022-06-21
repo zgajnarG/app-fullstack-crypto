@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { Store } from '@ngrx/store';
 import { selectBalance } from 'src/app/store/wallet/wallet.selector';
+import { selectUserId } from 'src/app/store/user/user.selector';
+import { saveWallet } from 'src/app/store/wallet/wallet.actions';
+import { Wallet } from 'src/app/models/wallet';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +34,14 @@ export class HomeComponent implements OnInit {
       (error) => {
         console.log(error);
       }
+    );
+    this.store.select(selectUserId).subscribe((userId) =>
+      this.httpService.getWalletById(userId).subscribe((data) => {
+        const walletData = data as Wallet[];
+        if (walletData.length > 0) {
+          this.store.dispatch(saveWallet(walletData[0]));
+        }
+      })
     );
     this.store.select(selectBalance).subscribe((balance) => {
       this.balance = balance;

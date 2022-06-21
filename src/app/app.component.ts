@@ -8,7 +8,7 @@ import {
   selectIsAuthenticated,
   selectUserId,
 } from 'src/app/store/user/user.selector';
-import { Wallet, WalletItem } from 'src/app/models/wallet';
+import { Wallet } from 'src/app/models/wallet';
 
 @Component({
   selector: 'app-root',
@@ -36,8 +36,10 @@ export class AppComponent {
     if (this.isAuthenticated) {
       this.store.select(selectUserId).subscribe((userId) =>
         this.httpService.getWalletById(userId).subscribe((data) => {
-          const walletData = data as Wallet;
-          this.store.dispatch(saveWallet(walletData));
+          const walletData = data as Wallet[];
+          if (walletData.length > 0) {
+            this.store.dispatch(saveWallet(walletData[0]));
+          }
         })
       );
     }

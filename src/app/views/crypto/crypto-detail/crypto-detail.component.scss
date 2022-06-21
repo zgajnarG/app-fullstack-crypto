@@ -1,9 +1,26 @@
-.header-crypto{
+.header-crypto {
   margin: 0.625rem;
   font-size: 1.563rem;
 }
 
+.description-crypto {
+  margin: 6.25rem;
+}
 
-.description-crypto{
-    margin : 6.25rem;
+.chart {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.card-crypto__actions {
+  margin-top: 20px;
+}
+
+.card-crypto__action {
+  margin-right: 16px;
+}
+
+.crypto-card__img {
+  margin-right: 8px;
 }
