@@ -1,32 +1,31 @@
-.home{
+.home {
   &__wrapper {
     margin: 10px;
   }
-
 }
 
-.user{
-  &__header{
+.user {
+  &__header {
     margin-top: 10px;
     font-size: 1rem;
-    font-family: 'Arial', 'serif';
+    font-family: "Arial", "serif";
   }
 
-  &__balance{
+  &__balance {
     margin-top: 5px;
     font-size: 2rem;
     font-weight: bold;
-    font-family: 'Arial', 'serif';
+    font-family: "Arial", "serif";
   }
 
   &__gains {
     margin-top: 5px;
     font-size: 1rem;
-    font-family: 'Arial', 'serif';
+    font-family: "Arial", "serif";
     &-balance {
       margin-left: 10px;
     }
-    &--positive{
+    &--positive {
       color: green;
     }
     &--negative {
@@ -35,14 +34,13 @@
   }
 }
 
-.favorite{
-  &__wrapper{
+.favorite {
+  &__wrapper {
   }
 }
 
-.crypto-card__wrapper, .cryptos{
+.crypto-card__wrapper,
+.cryptos {
   margin-top: 20px;
-  width: 100%
+  width: 100%;
 }
-
-

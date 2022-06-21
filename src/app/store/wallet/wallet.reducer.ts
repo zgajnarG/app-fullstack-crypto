@@ -58,7 +58,9 @@ function removeCryptoFromWallet(
   crypto: string,
   amount: number
 ) {
-  return coins.map((coin) =>
-    coin.crypto === crypto ? { ...coin, amount: coin.amount - amount } : coin
-  );
+  return coins
+    .map((coin) =>
+      coin.crypto === crypto ? { ...coin, amount: coin.amount - amount } : coin
+    )
+    .filter((coin) => Boolean(coin.amount));
 }

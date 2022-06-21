@@ -3,11 +3,13 @@
     size="lg"
     label="Acheter"
     (handleClick)="openDialog('BUY')"
+    class="wallet__action"
   ></lib-button>
   <lib-button
     size="lg"
     label="Vendre"
     (handleClick)="openDialog('SELL')"
+    class="wallet__action"
   ></lib-button>
 </flex-div>
 <lib-datatable [headers]="headers" [data]="data"></lib-datatable>
