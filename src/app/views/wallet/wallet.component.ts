@@ -8,6 +8,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { selectWallet } from 'src/app/store/wallet/wallet.selector';
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: 'app-wallet',
@@ -15,7 +16,6 @@ import { selectWallet } from 'src/app/store/wallet/wallet.selector';
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent implements OnInit {
-  constructor(public dialog: MatDialog, private store: Store) {}
 
   @Input() wallet: Wallet = {};
   headers: DatatableHeader[] = [
@@ -30,6 +30,9 @@ export class WalletComponent implements OnInit {
       order: 2,
     },
   ];
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(public dialog: MatDialog, private store: Store) {}
 
   get data() {
     return (this.wallet.coins || []).map((coin) =>
@@ -38,6 +41,12 @@ export class WalletComponent implements OnInit {
         value: coin[key as keyof WalletItem],
       }))
     ) as DatatableRowProperty[][];
+  }
+
+  ngOnInit(): void {
+    this.store.select(selectWallet).pipe(takeUntil(this.destroyed$)).subscribe((wallet) => {
+      this.wallet = wallet;
+    });
   }
 
   openDialog(action: string) {
@@ -51,9 +60,8 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.store.select(selectWallet).subscribe((wallet) => {
-      this.wallet = wallet;
-    });
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

@@ -6,6 +6,7 @@ import { addCrypto } from 'src/app/store/cryptos/cryptos.actions';
 import { selectOneById } from 'src/app/store/cryptos/cryptos.selector';
 import Crypto from "../../../models/crypto";
 import DataChart from 'webfullstack-design-system/lib/chart/chart.interface';
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-crypto-detail',
@@ -14,10 +15,7 @@ import DataChart from 'webfullstack-design-system/lib/chart/chart.interface';
 })
 export class CryptoDetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private store : Store , private httpService : HttpService , private router: Router) { }
-
   currentCrypto!: Crypto;
-
   data : DataChart[]=[{
     color : "red",
     data: [
@@ -49,13 +47,16 @@ export class CryptoDetailComponent implements OnInit {
     ]
   }
 ];
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private route: ActivatedRoute,private store : Store , private httpService : HttpService , private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.store.select(selectOneById(params['id'])).subscribe(data => {
+    this.route.params.pipe(takeUntil(this.destroyed$)).subscribe(params => {
+      this.store.select(selectOneById(params['id'])).pipe(takeUntil(this.destroyed$)).subscribe(data => {
         const listData = data as Crypto[];
         if(data.length == 0){
-          this.httpService.getCryptoById(params['id']).subscribe(dataHttp => {
+          this.httpService.getCryptoById(params['id']).pipe(takeUntil(this.destroyed$)).subscribe(dataHttp => {
             const listDataHttp = dataHttp as Crypto[];
             if(listDataHttp.length > 0){
               this.currentCrypto = listDataHttp[0];
@@ -77,6 +78,11 @@ export class CryptoDetailComponent implements OnInit {
 
   clickBuy(){
     this.router.navigate(['/wallet']);
+  }
+
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
 }
