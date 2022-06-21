@@ -15,3 +15,10 @@ export const selectUser = createSelector(
 export const selectUserId = createSelector(selectUser, (user: User) => {
   return user.id as number;
 });
+
+export const selectIsAuthenticated = createSelector(
+  selectUser,
+  (user: User) => {
+    return user.isAuthenticated;
+  }
+);

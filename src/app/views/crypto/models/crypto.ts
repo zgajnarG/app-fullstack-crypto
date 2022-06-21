@@ -1,7 +1,7 @@
 export interface Crypto {
-  id: Number;
-  name: String;
-  eur_price: Number;
-  image: String;
-  abbreviation: String;
+  id: number;
+  name: string;
+  eur_price: number;
+  image: string;
+  abbreviation: string;
 }

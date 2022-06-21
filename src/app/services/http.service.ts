@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserRegister } from '../models/user';
+import { Wallet } from '../models/wallet';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -30,5 +31,12 @@ export class HttpService {
 
   public getWalletById(userId: number): Observable<Object> {
     return this.httpClient.get(environment.apiUrl + 'wallet?userId=' + userId);
+  }
+
+  public putWallet(userId: number, wallet: Wallet): Observable<Object> {
+    return this.httpClient.put(
+      environment.apiUrl + 'wallet?userId=' + userId,
+      wallet
+    );
   }
 }

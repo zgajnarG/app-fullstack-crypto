@@ -1,13 +1,14 @@
-<flex-div class="home__wrapper" direction="column" alignItems="center" justifyContent="center">
+<flex-div
+  class="home__wrapper"
+  direction="column"
+  alignItems="center"
+  justifyContent="center"
+>
   <flex-div>
     <lib-card>
       <flex-div alignItems="center" direction="column">
-        <flex-div class="user__header">
-          Solde total
-        </flex-div>
-        <flex-div class="user__balance">
-          7,39 EUR
-        </flex-div>
+        <flex-div class="user__header"> Solde total </flex-div>
+        <flex-div class="user__balance"> {{ balance }} EUR </flex-div>
         <flex-div justifyContent="center" class="user__gains">
           <flex-div class="user__gains--positive user__gains-trend">
             + 18,07%
@@ -20,18 +21,27 @@
     </lib-card>
   </flex-div>
   <flex-div justifyContent="space-between" direction="row" [fullWidth]="true">
-
     <flex-div class="favorite__wrapper" direction="column">
       <flex-div>
         <p>Favorite</p>
       </flex-div>
 
-      <flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="favoriteCryptos.length > 0">
-        <flex-div class="crypto-card__wrapper" *ngFor="let crypto of favoriteCryptos">
-          <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
+      <flex-div
+        class="cryptolist"
+        alignItems="center"
+        direction="column"
+        *ngIf="favoriteCryptos.length > 0"
+      >
+        <flex-div
+          class="crypto-card__wrapper"
+          *ngFor="let crypto of favoriteCryptos"
+        >
+          <crypto-card
+            [crypto]="crypto"
+            (clickLineEvent)="handleClickLine($event)"
+          ></crypto-card>
         </flex-div>
       </flex-div>
-
     </flex-div>
 
     <flex-div class="favorite__wrapper" direction="column">
@@ -39,15 +49,22 @@
         <p>Hot Cryptos</p>
       </flex-div>
 
-      <flex-div class="cryptolist" alignItems="center" direction="column" *ngIf="randomCryptos.length > 0">
-        <flex-div class="crypto-card__wrapper" *ngFor="let crypto of randomCryptos">
-          <crypto-card [crypto]="crypto" (clickLineEvent)="handleClickLine($event)"></crypto-card>
+      <flex-div
+        class="cryptolist"
+        alignItems="center"
+        direction="column"
+        *ngIf="randomCryptos.length > 0"
+      >
+        <flex-div
+          class="crypto-card__wrapper"
+          *ngFor="let crypto of randomCryptos"
+        >
+          <crypto-card
+            [crypto]="crypto"
+            (clickLineEvent)="handleClickLine($event)"
+          ></crypto-card>
         </flex-div>
       </flex-div>
-
     </flex-div>
-
   </flex-div>
 </flex-div>
-
-

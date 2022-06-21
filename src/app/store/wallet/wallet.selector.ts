@@ -11,3 +11,7 @@ export const selectWallet = createSelector(
 export const selectBalance = createSelector(selectWallet, (state: Wallet) => {
   return state.balance;
 });
+
+export const selectCoins = createSelector(selectWallet, (state: Wallet) => {
+  return state.coins;
+});

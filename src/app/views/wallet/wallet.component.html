@@ -2,8 +2,12 @@
   <lib-button
     size="lg"
     label="Acheter"
-    (handleClick)="openDialog()"
+    (handleClick)="openDialog('BUY')"
   ></lib-button>
-  <lib-button size="lg" label="Vendre"></lib-button>
+  <lib-button
+    size="lg"
+    label="Vendre"
+    (handleClick)="openDialog('SELL')"
+  ></lib-button>
 </flex-div>
-<lib-datatable [headers]="getHeaders()" [data]="getData()"></lib-datatable>
+<lib-datatable [headers]="headers" [data]="data"></lib-datatable>

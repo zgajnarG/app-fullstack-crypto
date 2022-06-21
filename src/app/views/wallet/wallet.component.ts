@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Wallet, WalletItem } from '../../models/wallet';
-import { DatatableRowProperty } from 'webfullstack-design-system';
+import {
+  DatatableRowProperty,
+  DatatableHeader,
+} from 'webfullstack-design-system';
 import { ModalComponent } from '../../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { selectUserId } from '../../store/user/user.selector';
-import { HttpService } from 'src/app/services/http.service';
-import { saveWallet } from 'src/app/store/wallet/wallet.actions';
+import { selectWallet } from 'src/app/store/wallet/wallet.selector';
 
 @Component({
   selector: 'app-wallet',
@@ -14,56 +15,45 @@ import { saveWallet } from 'src/app/store/wallet/wallet.actions';
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent implements OnInit {
-  constructor(
-    public dialog: MatDialog,
-    private store: Store,
-    private httpService: HttpService
-  ) {}
+  constructor(public dialog: MatDialog, private store: Store) {}
 
-  @Input() wallet: WalletItem[] = [];
+  @Input() wallet: Wallet = {};
+  headers: DatatableHeader[] = [
+    {
+      label: 'Crypto',
+      name: 'crypto',
+      order: 1,
+    },
+    {
+      label: 'Quantité',
+      name: 'amount',
+      order: 2,
+    },
+  ];
 
-  getHeaders() {
-    return [
-      {
-        label: 'Crypto',
-        name: 'crypto',
-        order: 1,
-      },
-      {
-        label: 'Quantité',
-        name: 'amount',
-        order: 2,
-      },
-    ];
-  }
-
-  getData() {
-    return this.wallet.map((walletItem) =>
-      Object.keys(walletItem).map((key) => ({
+  get data() {
+    return (this.wallet.coins || []).map((coin) =>
+      Object.keys(coin).map((key) => ({
         headerName: key,
-        value: walletItem[key as keyof WalletItem],
+        value: coin[key as keyof WalletItem],
       }))
     ) as DatatableRowProperty[][];
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalComponent, {
+  openDialog(action: string) {
+    this.dialog.open(ModalComponent, {
       width: '500px',
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      data: {
+        balance: this.wallet.balance,
+        userId: this.wallet.userId,
+        action,
+      },
     });
   }
 
   ngOnInit(): void {
-    this.store.select(selectUserId).subscribe((userId) =>
-      this.httpService.getWalletById(userId).subscribe((data) => {
-        const walletData = data as Wallet;
-        this.wallet = walletData.coins as WalletItem[];
-        this.store.dispatch(saveWallet(walletData));
-      })
-    );
+    this.store.select(selectWallet).subscribe((wallet) => {
+      this.wallet = wallet;
+    });
   }
 }

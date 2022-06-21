@@ -1,10 +1,16 @@
 export interface Wallet {
-  balance?: Number;
-  userId?: Number;
+  balance?: number;
+  userId?: number;
   coins?: WalletItem[];
 }
 
 export interface WalletItem {
-  crypto: String;
-  amount: Number;
+  crypto: string;
+  amount: number;
+}
+
+export interface CryptoTransactionPayload {
+  crypto: string;
+  amount: number;
+  price: number;
 }
