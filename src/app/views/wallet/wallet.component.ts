@@ -4,7 +4,7 @@ import {
   DatatableRowProperty,
   DatatableHeader,
 } from 'webfullstack-design-system';
-import { ModalComponent } from '../../modal/modal.component';
+import { ModalComponent } from '../../components/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { selectWallet } from 'src/app/store/wallet/wallet.selector';
