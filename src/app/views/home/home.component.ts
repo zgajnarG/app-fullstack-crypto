@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
     if (this.balance === 0) {
       this.store.select(selectUserId).pipe(concatMap((userId: number)=> this.httpService.getWalletById(userId).pipe(takeUntil(this.destroyed$))), takeUntil(this.destroyed$)).subscribe((data) => {
           const walletData = data as Wallet[];
-          console.log(walletData)
           if (walletData.length > 0) {
             this.store.dispatch(saveWallet(walletData[0]));
           }
