@@ -9,6 +9,7 @@ import { buyCrypto, sellCrypto } from 'src/app/store/wallet/wallet.actions';
 import { selectCoins } from '../../store/wallet/wallet.selector';
 import { WalletItem } from 'src/app/models/wallet';
 import { HttpService } from 'src/app/services/http.service';
+import {Subject, takeUntil} from "rxjs";
 export interface DialogData {
   balance: number;
   userId: number;
@@ -21,41 +22,26 @@ export interface DialogData {
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-  constructor(
-    private httpService: HttpService,
-    public dialogRef: MatDialogRef<ModalComponent>,
-    private store: Store,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
 
   userId: number | undefined;
   balance: number = 0;
   coins: WalletItem[] = [];
-
   options: Crypto[] = [];
-
   selectedCrypto: string = 'Bitcoin';
   amount: number = 0;
   action: string = '';
-
-  onClose(): void {
-    this.dialogRef.close();
-  }
-
   toastConfig = {
     color: '',
     message: '',
     open: false,
     duration: 0,
   };
-
   toastConfigBuyFailure = {
     message: 'Solde insuffisant.',
     color: 'red',
     open: true,
     duration: 0,
   };
-
   toastConfigSellFailure = {
     message:
       'Vous ne possédez pas cette crypto-monnaie en quantité suffisante.',
@@ -63,6 +49,29 @@ export class ModalComponent implements OnInit {
     duration: 0,
     open: true,
   };
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
+    private httpService: HttpService,
+    public dialogRef: MatDialogRef<ModalComponent>,
+    private store: Store,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
+
+  ngOnInit(): void {
+    this.store.select(selectAll()).pipe(takeUntil(this.destroyed$)).subscribe((data) => {
+      this.options = data as Crypto[];
+      this.selectedCrypto = this.options[0].name;
+    });
+
+    this.store.select(selectCoins).pipe(takeUntil(this.destroyed$)).subscribe((coins) => {
+      this.coins = coins as WalletItem[];
+    });
+
+    this.userId = this.data.userId;
+    this.balance = this.data.balance;
+    this.action = this.data.action;
+  }
 
   get selectedCryptoObject() {
     return this.options.find(({ name }) => name === this.selectedCrypto);
@@ -76,6 +85,10 @@ export class ModalComponent implements OnInit {
 
   get isBuying() {
     return this.action === 'BUY';
+  }
+
+  onClose(): void {
+    this.dialogRef.close();
   }
 
   onBuy(): void {
@@ -142,18 +155,8 @@ export class ModalComponent implements OnInit {
     this.toastConfig.open = false;
   }
 
-  ngOnInit(): void {
-    this.store.select(selectAll()).subscribe((data) => {
-      this.options = data as Crypto[];
-      this.selectedCrypto = this.options[0].name;
-    });
-
-    this.store.select(selectCoins).subscribe((coins) => {
-      this.coins = coins as WalletItem[];
-    });
-
-    this.userId = this.data.userId;
-    this.balance = this.data.balance;
-    this.action = this.data.action;
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

@@ -6,6 +6,7 @@ import { FieldConfig } from 'webfullstack-design-system';
 import { LoginEvent } from '../auth.interface';
 import { loginUser } from 'src/app/store/user/user.actions';
 import { Router } from "@angular/router";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpService : HttpService , private store : Store, private router: Router ) {
   }
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(event :LoginEvent){
 
-    this.httpService.loginUser(event as UserRegister).pipe().subscribe(data => {
+    this.httpService.loginUser(event as UserRegister).pipe(takeUntil(this.destroyed$)).subscribe(data => {
       const result : Array<UserDatabase> = data as Array<UserDatabase>;
       if(result.length>0){
         const data :User = result[0] as unknown as User;
@@ -81,5 +83,9 @@ export class LoginComponent implements OnInit {
     this.toastConfig.open=false;
   }
 
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
 
 }
