@@ -2,13 +2,41 @@
   <flex-div alignItems="center" justifyContent="space-between">
     <flex-div class="header__logo">Crypto</flex-div>
     <flex-div justifyContent="space-around" *ngIf="isAuthenticated">
-      <a routerLink="/home" class="header__links" routerLinkActive="header__links--active">Home</a>
-      <a routerLink="/crypto" class="header__links" routerLinkActive="header__links--active">Crypto</a>
+      <a
+        routerLink="/home"
+        class="header__links"
+        routerLinkActive="header__links--active"
+        >Home</a
+      >
+      <a
+        routerLink="/crypto"
+        class="header__links"
+        routerLinkActive="header__links--active"
+        >Crypto</a
+      >
+      <a
+        routerLink="/wallet"
+        class="header__links"
+        routerLinkActive="header__links--active"
+        >Wallet</a
+      >
     </flex-div>
     <flex-div justifyContent="space-around">
-      <a *ngIf="!isAuthenticated" class="header__links" routerLink="/auth/register">Créer un compte</a>
-      <a *ngIf="!isAuthenticated" class="header__links" routerLink="/auth/login">Connexion</a>
-      <a *ngIf="isAuthenticated" class="header__links" (click)="handleDisconnectUser()">Déconnexion</a>
+      <a
+        *ngIf="!isAuthenticated"
+        class="header__links"
+        routerLink="/auth/register"
+        >Créer un compte</a
+      >
+      <a *ngIf="!isAuthenticated" class="header__links" routerLink="/auth/login"
+        >Connexion</a
+      >
+      <a
+        *ngIf="isAuthenticated"
+        class="header__links"
+        (click)="handleDisconnectUser()"
+        >Déconnexion</a
+      >
     </flex-div>
   </flex-div>
 </div>

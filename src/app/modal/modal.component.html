@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>
+  {{ isBuying ? "Acheter" : "Vendre" }} de la crypto-monnaie
+</h1>
+<div mat-dialog-content>
+  <select [(ngModel)]="selectedCrypto">
+    <option *ngFor="let option of options" [value]="option.name">
+      {{ option.name }} ({{ option.eur_price }}€)
+    </option>
+  </select>
+  <input type="number" [(ngModel)]="amount" />
+  <p>Votre solde: {{ balance }}€</p>
+  <p>{{ isBuying ? "Coût" : "Gain" }} total: {{ total }}€</p>
+</div>
+<div mat-dialog-actions class="modal__actions">
+  <lib-button label="Annuler" (click)="onClose()"></lib-button>
+  <lib-button
+    [label]="isBuying ? 'Acheter' : 'Vendre'"
+    (click)="isBuying ? onBuy() : onSell()"
+  ></lib-button>
+</div>
+<snackbar
+  [message]="toastConfig.message"
+  [open]="toastConfig.open"
+  [autoHideDuration]="toastConfig.duration"
+  [backgroundColor]="toastConfig.color"
+  (autoHideEvent)="onHideToast()"
+>
+</snackbar>

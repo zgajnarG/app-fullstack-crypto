@@ -1,20 +1,17 @@
-<lib-card class="crypto-card" elevation="sm" color="raisin" [width]="width">
+<lib-card class="crypto-card">
   <flex-div
     *ngIf="crypto"
     justifyContent="space-between"
     class="crypto-card__content"
     [fullWidth]="true"
-    (click)="clickLine()"
   >
     <flex-div alignItems="center">
-      <img [src]="crypto.image" alt="bitcoin" class="crypto-card__img" />
+      <img [src]="crypto.image" class="crypto-card__img" />
       <flex-div direction="column">
         <p>{{ crypto.name }}</p>
         <p>{{ crypto.abbreviation }}</p>
       </flex-div>
     </flex-div>
-    <flex-div direction="row">
-      <p>{{ crypto.eur_price }}€</p>
-    </flex-div>
+    <p>{{ crypto.eur_price }}€</p>
   </flex-div>
 </lib-card>
