@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from "@angular/router";
 import { WebfullstackDesignSystemModule } from "webfullstack-design-system";
 import { AllCryptosComponent } from './all-cryptos/all-cryptos.component';
-import { CryptoComponentModule } from "../../components/crypto/crypto-component.module";
+import { CryptoComponentsModule } from "../../components/crypto/crypto-components.module";
 import { CryptoDetailComponent } from "./crypto-detail/crypto-detail.component";
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     WebfullstackDesignSystemModule,
-    CryptoComponentModule
+    CryptoComponentsModule
   ]
 })
 export class CryptoModule { }

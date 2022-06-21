@@ -2,11 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Crypto } from '../views/crypto/models/crypto';
+import { Crypto } from '../../views/crypto/models/crypto';
 import { Store } from '@ngrx/store';
 import { selectAll } from 'src/app/store/cryptos/cryptos.selector';
 import { buyCrypto, sellCrypto } from 'src/app/store/wallet/wallet.actions';
-import { selectCoins } from '../store/wallet/wallet.selector';
+import { selectCoins } from '../../store/wallet/wallet.selector';
 import { WalletItem } from 'src/app/models/wallet';
 import { HttpService } from 'src/app/services/http.service';
 export interface DialogData {
