@@ -49,20 +49,6 @@ export class ModalComponent implements OnInit {
     duration: 0,
   };
 
-  toastConfigBuySuccess = {
-    message: 'Achat effectué avec succès !',
-    color: 'green',
-    duration: 8000,
-    open: true,
-  };
-
-  toastConfigSellSuccess = {
-    message: 'Vente effectuée avec succès !',
-    color: 'green',
-    duration: 8000,
-    open: true,
-  };
-
   toastConfigBuyFailure = {
     message: 'Solde insuffisant.',
     color: 'red',
@@ -101,7 +87,6 @@ export class ModalComponent implements OnInit {
     } else if (this.balance < this.total) {
       this.toastConfig = this.toastConfigBuyFailure;
     } else {
-      this.toastConfig = this.toastConfigBuySuccess;
       this.store.dispatch(
         buyCrypto({
           crypto: this.selectedCrypto,
@@ -132,7 +117,6 @@ export class ModalComponent implements OnInit {
       );
 
       if (coinObject && coinObject.amount >= this.amount) {
-        this.toastConfig = this.toastConfigSellSuccess;
         this.store.dispatch(
           sellCrypto({
             crypto: this.selectedCrypto,
