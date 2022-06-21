@@ -7,6 +7,7 @@ import { selectBalance } from 'src/app/store/wallet/wallet.selector';
 import { selectUserId } from 'src/app/store/user/user.selector';
 import { saveWallet } from 'src/app/store/wallet/wallet.actions';
 import { Wallet } from 'src/app/models/wallet';
+import {concatMap} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -39,14 +40,13 @@ export class HomeComponent implements OnInit {
       }
     );
     if (this.balance === 0) {
-      this.store.select(selectUserId).subscribe((userId) =>
-        this.httpService.getWalletById(userId).subscribe((data) => {
+      this.store.select(selectUserId).pipe(concatMap((userId: number)=> this.httpService.getWalletById(userId))).subscribe((data) => {
           const walletData = data as Wallet[];
+          console.log(walletData)
           if (walletData.length > 0) {
             this.store.dispatch(saveWallet(walletData[0]));
           }
-        })
-      );
+      });
     }
   }
 
