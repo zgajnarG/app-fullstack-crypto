@@ -25,6 +25,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.store.select(selectBalance).subscribe((balance) => {
+      this.balance = balance;
+    });
     this.httpService.getCryptos().subscribe(
       (data) => {
         const cryptos = data as Crypto[];
@@ -35,17 +38,16 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
-    this.store.select(selectUserId).subscribe((userId) =>
-      this.httpService.getWalletById(userId).subscribe((data) => {
-        const walletData = data as Wallet[];
-        if (walletData.length > 0) {
-          this.store.dispatch(saveWallet(walletData[0]));
-        }
-      })
-    );
-    this.store.select(selectBalance).subscribe((balance) => {
-      this.balance = balance;
-    });
+    if (this.balance === 0) {
+      this.store.select(selectUserId).subscribe((userId) =>
+        this.httpService.getWalletById(userId).subscribe((data) => {
+          const walletData = data as Wallet[];
+          if (walletData.length > 0) {
+            this.store.dispatch(saveWallet(walletData[0]));
+          }
+        })
+      );
+    }
   }
 
   handleClickLine(event: Crypto) {
