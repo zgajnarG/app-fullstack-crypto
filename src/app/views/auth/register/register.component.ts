@@ -3,6 +3,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { FieldConfig } from 'webfullstack-design-system';
 import { RegisterEvent } from '../auth.interface';
 import { Router } from '@angular/router';
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private httpService: HttpService, private router: Router) {}
 
   toastConfig = {
     open: false,
@@ -65,6 +65,9 @@ export class RegisterComponent implements OnInit {
       ],
     },
   ];
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -73,7 +76,7 @@ export class RegisterComponent implements OnInit {
       const data = { email: event.email, password: event.password };
       this.httpService
         .registerUser(data)
-        .pipe()
+        .pipe(takeUntil(this.destroyed$))
         .subscribe(
           (_) => {
             this.openToast('green', 'Votre compte a été créé avec succès');
@@ -98,5 +101,10 @@ export class RegisterComponent implements OnInit {
 
   onHideToast() {
     this.toastConfig.open = false;
+  }
+
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }

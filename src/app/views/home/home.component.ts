@@ -7,7 +7,7 @@ import { selectBalance } from 'src/app/store/wallet/wallet.selector';
 import { selectUserId } from 'src/app/store/user/user.selector';
 import { saveWallet } from 'src/app/store/wallet/wallet.actions';
 import { Wallet } from 'src/app/models/wallet';
-import {concatMap} from "rxjs";
+import { concatMap, Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   favoriteCryptos: Crypto[] = [];
   randomCryptos: Crypto[] = [];
   balance: Number | undefined = 0;
+  private destroyed$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private router: Router,
@@ -26,10 +27,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectBalance).subscribe((balance) => {
+    this.store.select(selectBalance).pipe(takeUntil(this.destroyed$)).subscribe((balance) => {
       this.balance = balance;
     });
-    this.httpService.getCryptos().subscribe(
+    this.httpService.getCryptos().pipe(takeUntil(this.destroyed$)).subscribe(
       (data) => {
         const cryptos = data as Crypto[];
         this.randomCryptos = cryptos;
@@ -40,9 +41,8 @@ export class HomeComponent implements OnInit {
       }
     );
     if (this.balance === 0) {
-      this.store.select(selectUserId).pipe(concatMap((userId: number)=> this.httpService.getWalletById(userId))).subscribe((data) => {
+      this.store.select(selectUserId).pipe(concatMap((userId: number)=> this.httpService.getWalletById(userId).pipe(takeUntil(this.destroyed$))), takeUntil(this.destroyed$)).subscribe((data) => {
           const walletData = data as Wallet[];
-          console.log(walletData)
           if (walletData.length > 0) {
             this.store.dispatch(saveWallet(walletData[0]));
           }
@@ -52,5 +52,10 @@ export class HomeComponent implements OnInit {
 
   handleClickLine(event: Crypto) {
     this.router.navigate([`/crypto/${event.id}`]);
+  }
+
+  ngOnDestroy(){
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
