@@ -1,0 +1,65 @@
+<div class="card-crypto" *ngIf="currentCrypto; else no_crypto">
+  <div class="card-crypto__actions">
+    <flex-div alignItems="center" justifyContent="center">
+      <lib-button
+        label="Retourner sur les cryptos"
+        (handleClick)="clickReturn()"
+        class="card-crypto__action"
+      ></lib-button>
+      <lib-button
+        label="Acheter"
+        (handleClick)="clickBuy()"
+        class="card-crypto__action"
+      ></lib-button>
+    </flex-div>
+  </div>
+  <flex-div
+    class="header-crypto"
+    direction="column"
+    alignItems="center"
+    [fullWidth]="true"
+  >
+    <flex-div alignItems="center">
+      <img
+        [src]="currentCrypto.image"
+        alt="bitcoin"
+        class="crypto-card__img"
+        width="40px"
+      />
+      <p>{{ currentCrypto.name }}</p>
+    </flex-div>
+    <flex-div [fullWidth]="true">
+      <p>{{ currentCrypto.eur_price }}€</p>
+    </flex-div>
+  </flex-div>
+  <flex-div
+    class="header-crypto"
+    alignItems="center"
+    justifyContent="space-around"
+    [fullWidth]="true"
+  >
+    <div class="chart">
+      <lib-chart [data]="data" [maxX]="200" [unitsPerTickX]="25"></lib-chart>
+    </div>
+  </flex-div>
+  <div class="description-crypto">
+    <flex-div direction="column">
+      <h3>A propos de {{ currentCrypto.name }}</h3>
+      <p>
+        {{ currentCrypto.name }}is simply dummy text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry's standard dummy
+        text ever since the 1500s, when an unknown printer took a galley of type
+        and scrambled it to make a type specimen book. It has survived not only
+        five centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+    </flex-div>
+  </div>
+</div>
+
+<ng-template #no_crypto>
+  <p>No crypto selected</p>
+</ng-template>

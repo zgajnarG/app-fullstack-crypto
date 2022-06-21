@@ -1,0 +1,27 @@
+//TODO: centraliser police couleur etc...
+
+.header {
+  padding: 20px;
+  background-color: black;
+  &__links {
+    margin-left: 20px;
+    color: white;
+    &--active {
+      color: chocolate;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+
+  &__logo {
+    font-size: 2rem;
+    color: white;
+  }
+}
+
+a {
+  font-family: "Arial", "serif";
+  color: darkblue;
+  font-size: 1rem;
+  text-decoration: none;
+}

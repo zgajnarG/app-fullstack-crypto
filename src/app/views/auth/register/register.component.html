@@ -1,0 +1,14 @@
+<flex-div alignItems="center" justifyContent="center" [fullHeight]="true">
+  <lib-card title="Créer un compte" color="raisin" borderRadius="10" elevation="md" padding="md" sense="row" width="35.25rem" align="center" justify="center">
+    <lib-form [fields]="formData" (submit)="onSubmit($event)"></lib-form>
+  </lib-card>
+</flex-div>
+
+<snackbar
+  [message]="toastConfig.message"
+  [open]="toastConfig.open"
+  [autoHideDuration]="toastConfig.duration"
+  [backgroundColor]="toastConfig.color"
+  (autoHideEvent)="onHideToast()"
+>
+</snackbar>
