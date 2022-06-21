@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Crypto from "../../models/crypto";
 import {Router} from "@angular/router";
+import {HttpService} from "../../services/http.service";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-home',
@@ -12,30 +14,19 @@ export class HomeComponent implements OnInit {
   favoriteCryptos: Crypto[] = [];
   randomCryptos: Crypto[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private httpService: HttpService, private store: Store) { }
 
   ngOnInit(): void {
-    this.favoriteCryptos = [{
-      id: 1,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      image: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }, {
-      id: 2,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      image: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }, {
-      id: 3,
-      name: 'Bitcoin',
-      eur_price: 29530.8,
-      image: 'https://s2.coinmarketcap.com/static/img/coins/128x128/1.png',
-      abbreviation: 'BTC',
-    }];
+    this.httpService.getCryptos().subscribe((data) => {
+      const cryptos = data as Crypto[];
+      this.randomCryptos = cryptos
+      this.favoriteCryptos = cryptos.slice(2, 8).reverse();
+    }, (error) => {
+      console.log(error);
+    });
 
-    this.randomCryptos = this.favoriteCryptos;
+
+
   }
 
   handleClickLine(event :Crypto){

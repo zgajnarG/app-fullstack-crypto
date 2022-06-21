@@ -1,6 +1,6 @@
 .home{
   &__wrapper {
-    margin-top: 20px;
+    margin: 10px;
   }
 
 }
@@ -21,7 +21,7 @@
 
   &__gains {
     margin-top: 5px;
-    font-size: 0.5rem;
+    font-size: 1rem;
     font-family: 'Arial', 'serif';
     &-balance {
       margin-left: 10px;
@@ -35,7 +35,14 @@
   }
 }
 
-.favorite__wrapper{
-  margin-top: 10px
+.favorite{
+  &__wrapper{
+  }
 }
+
+.crypto-card__wrapper, .cryptos{
+  margin-top: 20px;
+  width: 100%
+}
+
 
