@@ -1,4 +1,4 @@
-<lib-card class="crypto-card">
+<lib-card class="crypto-card" elevation="sm" color="raisin" [width]="width">
   <flex-div
     *ngIf="crypto"
     justifyContent="space-between"
@@ -13,6 +13,8 @@
         <p>{{ crypto.abbreviation }}</p>
       </flex-div>
     </flex-div>
+    <flex-div direction="row">
+      <p>{{ crypto.eur_price }}€</p>
+    </flex-div>
   </flex-div>
-  <p>{{ crypto.eur_price }}€</p>
 </lib-card>

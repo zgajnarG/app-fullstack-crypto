@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { HttpService } from 'src/app/services/http.service';
 import { addCrypto } from 'src/app/store/cryptos/cryptos.actions';
@@ -14,7 +14,7 @@ import DataChart from 'webfullstack-design-system/lib/chart/chart.interface';
 })
 export class CryptoDetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private store : Store , private httpService : HttpService) { }
+  constructor(private route: ActivatedRoute,private store : Store , private httpService : HttpService , private router: Router) { }
 
   currentCrypto!: Crypto;
 
@@ -69,6 +69,14 @@ export class CryptoDetailComponent implements OnInit {
         }
       });
     });
+  }
+
+  clickReturn(){
+    this.router.navigate(['/crypto']);
+  }
+
+  clickBuy(){
+    this.router.navigate(['/wallet']);
   }
 
 }

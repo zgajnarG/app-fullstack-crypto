@@ -8,9 +8,9 @@ import Crypto from "../../../models/crypto";
 })
 export class CryptoCardComponent implements OnInit {
   @Input() crypto!: Crypto;
-
+  @Input() width = '30rem';
+  @Input() height = '10rem';
   @Output() clickLineEvent = new EventEmitter<Crypto>();
-
   constructor() {}
 
   ngOnInit(): void {}
@@ -18,4 +18,6 @@ export class CryptoCardComponent implements OnInit {
   clickLine(): void {
     this.clickLineEvent.emit(this.crypto);
   }
+
+
 }
