@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WalletComponent } from './wallet.component';
 import { WebfullstackDesignSystemModule } from 'webfullstack-design-system';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'src/app/modal/modal.module';
+import { ModalModule } from 'src/app/components/modal/modal.module';
 
 const routes: Routes = [
   {
